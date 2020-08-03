@@ -21,7 +21,7 @@ let max = 10;
 let turn = 3;
 
 
-let winningNum = 2;
+let winningNum = getRandom(min, max) ;
 
 // Instructions message
 minMaxMessage.innerText = `Guess a number between ${min} and ${max}`;
@@ -36,19 +36,31 @@ submitBtn.addEventListener('click', function () {
 
     if (isNaN(guess) || guess < min || guess > max) {
 
-        message.innerText = 'This is an invalid answer!'
+        message.innerText = 'This is an invalid answer!';
+        playerInput.style.borderColor = 'red';
+        message.style.color = 'red';
+
     }  else {
             turn -= 1;
     
-            message.innerHTML = `Try Again, you have ${turn} turns left`
+        message.innerHTML = `Try Again, you have ${turn} turns left`;
+        playerInput.style.borderColor = 'red';
+        message.style.color = 'red';
         }
 
     
     if (guess === winningNum) {
 
         message.innerText = `YOU WIN! The correct answer is ${winningNum}`;
+        playerInput.style.borderColor = 'green';
+        message.style.color = 'green';
      } 
     
 
 
 });
+
+function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
