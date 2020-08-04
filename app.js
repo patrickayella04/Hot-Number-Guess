@@ -7,21 +7,19 @@
 
 // Elements
 
-const minMaxMessage = document.getElementById('min-max-message');
-const playerInput = document.getElementById('input');
-const submitBtn = document.getElementById('submit-btn');
-const message = document.getElementById('message');
-const minGuess = document.getElementById('minGuess');
-const maxGuess = document.getElementById('maxGuess');
+const minMaxMessage = document.getElementById('min-max-message'),
+    playerInput = document.getElementById('input'),
+    submitBtn = document.getElementById('submit-btn'),
+    message = document.getElementById('message'),
+    minGuess = document.getElementById('minGuess'),
+    maxGuess = document.getElementById('maxGuess');
 
 
 // Variables
-let min = 1;
-let max = 10;
-let turn = 3;
-
-
-let winningNum = getRandom(min, max) ;
+let min = 1,
+    max = 10,
+    turn = 3,
+    winningNum = getRandom(min, max) ;
 
 // Instructions message
 minMaxMessage.innerText = `Guess a number between ${min} and ${max}`;
@@ -36,25 +34,23 @@ submitBtn.addEventListener('click', function () {
 
     if (isNaN(guess) || guess < min || guess > max) {
 
-        message.innerText = 'This is an invalid answer!';
-        playerInput.style.borderColor = 'red';
-        message.style.color = 'red';
+        messageOptions('This is an invalid answer!', 'red');
 
     }  else {
             turn -= 1;
     
-        message.innerHTML = `Try Again, you have ${turn} turns left`;
-        playerInput.style.borderColor = 'red';
-        message.style.color = 'red';
+        messageOptions(`Try Again, you have ${turn} turns left`, 'red')
         }
 
     
     if (guess === winningNum) {
 
-        message.innerText = `YOU WIN! The correct answer is ${winningNum}`;
-        playerInput.style.borderColor = 'green';
-        message.style.color = 'green';
-     } 
+        messageOptions(`YOU WIN! The correct answer is ${winningNum}`, 'green');
+
+    } else if (turn === 0) {
+        messageOptions('YOU LOSE!', 'red');
+        playerInput.disabled = true;
+     }
     
 
 
@@ -62,5 +58,12 @@ submitBtn.addEventListener('click', function () {
 
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function messageOptions(msg,color) {
+    message.innerText = msg;
+    playerInput.style.borderColor = color;
+    message.style.color = color;
+    playerInput.value = '';
 }
 
