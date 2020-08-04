@@ -26,6 +26,7 @@ minMaxMessage.innerText = `Guess a number between ${min} and ${max}`;
 
 
 
+
 // Event listener
 submitBtn.addEventListener('click', function () {
     const guess = parseInt(playerInput.value);
@@ -46,10 +47,17 @@ submitBtn.addEventListener('click', function () {
     if (guess === winningNum) {
 
         messageOptions(`YOU WIN! The correct answer is ${winningNum}`, 'green');
+        playerInput.disabled = true;
+        newGame();
+        
 
     } else if (turn === 0) {
+
         messageOptions('YOU LOSE!', 'red');
+
         playerInput.disabled = true;
+        newGame();
+
      }
     
 
@@ -66,4 +74,23 @@ function messageOptions(msg,color) {
     message.style.color = color;
     playerInput.value = '';
 }
+
+function newGame() {
+    const newBtn = document.getElementById('submit-btn');
+    newBtn.innerHTML = 'NEW GAME!';
+
+    if (newBtn.innerHTML === 'NEW GAME!') {
+        newBtn.className = ('new-game');
+    }
+
+    // retart game
+    document.querySelector('.new-game').addEventListener('mousedown', function (e) {
+        window.location.reload(true);
+        
+        e.preventDefault();
+    });
+    
+    
+}
+
 
